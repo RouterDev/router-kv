@@ -1,0 +1,15 @@
+{
+  "name": "@router/kv",
+  "version": "0.1.0",
+  "exports": "./mod.ts",
+  "tasks": {
+    "populate": "deno run --allow-net --allow-read --allow-env --allow-ffi test/populate.ts",
+    "test": "deno test --allow-net --allow-read --allow-env --allow-ffi test/mod_test.ts",
+    "mock-publish": "deno fmt && deno lint && deno publish --dry-run",
+    "publish": "deno fmt && deno lint && deno publish"
+  },
+  "publish": {
+    "include": ["LICENSE", "README.md", "**/*.ts"],
+    "exclude": ["test", "dev_deps.ts"]
+  }
+}

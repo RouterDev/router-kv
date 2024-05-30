@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "es2020", // Set the target version to ES2015 or later
+    "module": "es2020",
+    "lib": ["esnext"] // Include the necessary libraries
+  },
+  "include": ["./types.d.ts", "./**/*.ts"]
+}
