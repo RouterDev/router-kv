@@ -1,3 +1,19 @@
+/**
+ * This module provides a key-value store interface for Turso, allowing for
+ * basic CRUD operations, transactions, and synchronization with a read replica.
+ *
+ * ```ts
+ * import { openKV } from "jsr:@router/kv";
+ *
+ * const kv = await openKV("libsql://example.turso.io", "authToken");
+ *
+ * const record = await kv.get<number>("temperature:london");
+ * console.log(record); // { k: "temperature:london", v: 16, created_at: "...", updated_at: "..." }
+ * ```
+ *
+ * @module
+ */
+
 import { createClient, load } from "./deps.ts";
 import { KVError, setupDatabase } from "./utils.ts";
 
@@ -18,14 +34,20 @@ import type { Client, Config, Transaction, TransactionMode } from "./deps.ts";
 await load({ export: true });
 
 /**
- * @description Function that opens the client with the DB, creates table+triggers if they do not exist, and returns a set of functions for interfacing with the DB as a KV store.
+ * Opens a connection to the KV database and sets up the necessary structures.
  *
- * @param {string} url - The url of the Turso DB that will store the kv table and be interfaced as a KV store.
- * @param {string} authToken - The token for authorising access to the DB specified by url
- * @param {OpenKVOptions} [options] - The optional object optionally containing readReplicaPath, syncInterval, and eventListener
- * @param {string|undefined} [options].?readReplicaPath - The file path of the local read replica DB to be used for read operations.
- * @param {number|undefined} [options].?syncInterval - The number of seconds between each sync from the Turso DB to the local read replica.
- * @param {EventListener|undefined} [options].?eventListener - If provided, this function will be called when get and delete methods and will be supplied a KvEvent object detailing the changes to the KV.
+ * @param {string} url - The URL of the KV database.
+ * @param {string} authToken - The authentication token for the database.
+ * @param {OpenKVOptions} [options] - Optional settings for the KV client.
+ * @returns {Promise<KvInterface>} A promise that resolves to the KV interface.
+ *
+ * @example
+ * ```ts
+ * import { openKV } from "jsr:@router/kv";
+ *
+ * const kv = await openKV("libsql://example.turso.io", "authToken");
+ * console.log("KV database opened");
+ * ```
  */
 const openKV = async (
   url: string,
@@ -62,6 +84,13 @@ const openKV = async (
   return kvInterface(client, options?.eventListener);
 };
 
+/**
+ * Provides the KV interface with methods to interact with the KV table.
+ *
+ * @param {Client | Transaction} instance - The database client or transaction instance.
+ * @param {EventListener} [eventListener] - Optional event listener for KV events.
+ * @returns {KvInterface} The KV interface.
+ */
 const kvInterface = (
   instance: Client | Transaction,
   eventListener?: EventListener,
@@ -72,6 +101,20 @@ const kvInterface = (
       return eventBuffer;
     },
 
+    /**
+     * Sets a key-value pair in the KV table.
+     *
+     * @param {string} key - The key to set/update.
+     * @param {KvValue} value - The value to set.
+     * @template T - Optional template to cast return objects value property from KvValue to T.
+     * @returns {Promise<KvRecord<T> | null>} KvRecord object describing the record of the KV store that has been set, alternatively returns null if key has been set to null.
+     *
+     * @example
+     * ```ts
+     * const record = await kv.set<number>("temperature:london", 16);
+     * console.log(record); // { k: "temperature:london", v: 16, created_at: "...", updated_at: "..." }
+     * ```
+     */
     async set<T>(key: string, value: KvValue): Promise<KvRecord<T> | null> {
       try {
         if (value === null) {
@@ -106,6 +149,19 @@ const kvInterface = (
       }
     },
 
+    /**
+     * Retrieves the value for a specified key if it exists.
+     *
+     * @param {string} key - The key to retrieve the value for.
+     * @template T - Optional template to cast return objects value property from KvValue to T.
+     * @returns {Promise<KvRecord<T> | null>} The KvRecord object describing the record corresponding to the given key if it exists in the table, else null.
+     *
+     * @example
+     * ```ts
+     * const record = await kv.get<number>("temperature:london");
+     * console.log(record); // { k: "temperature:london", v: 16, created_at: "...", updated_at: "..." }
+     * ```
+     */
     async get<T>(key: string): Promise<KvRecord<T> | null> {
       try {
         const resultSet = await instance.execute({
@@ -134,6 +190,20 @@ const kvInterface = (
       }
     },
 
+    /**
+     * Lists entries in the KV table based on prefix and other options.
+     *
+     * @param {string} prefix - Allows for optional filtering by matching prefixes, set this to "" to include all keys.
+     * @param {Partial<KvListOptions>} [options] - The options that pick the ordering, pagination, and whether to include exact prefix match.
+     * @template T - Optional template to cast return objects value property from KvValue to T.
+     * @returns {Promise<KvListOutput<T>>} KvListOutput object containing the array of KvRecord objects describing the query result, and a meta object describing the options that called the KvInterface.list, as well as the number of rows.
+     *
+     * @example
+     * ```ts
+     * const result = await kv.list<number>("temperature:");
+     * console.log(result); // { data: [...], meta: { limit: 100, offset: 0, reverse: false, orderBy: "k", total: ... } }
+     * ```
+     */
     async list<T>(
       prefix: string,
       options?: Partial<KvListOptions>,
@@ -217,6 +287,18 @@ const kvInterface = (
       }
     },
 
+    /**
+     * Deletes a specific key-value pair if it exists.
+     *
+     * @param {string} key - Key for which removal of KV pair will occur, if it exists.
+     * @returns {Promise<void>}
+     *
+     * @example
+     * ```ts
+     * await kv.delete("temperature:london");
+     * console.log("Record deleted");
+     * ```
+     */
     async delete(key: string): Promise<void> {
       try {
         const resultSet = await instance.batch([
@@ -254,6 +336,18 @@ const kvInterface = (
       }
     },
 
+    /**
+     * Deletes all key-value pairs with keys beginning with prefix in the KV table. Should be used with extreme caution.
+     *
+     * @param {string} [prefix=""] - All records with key starting with this string will be deleted. Not providing prefix will cause all delete ALL records.
+     * @returns {Promise<void>}
+     *
+     * @example
+     * ```ts
+     * await kv.deleteAll("temperature:");
+     * console.log("All records with the prefix deleted");
+     * ```
+     */
     async deleteAll(prefix: string = ""): Promise<void> {
       try {
         if (prefix) {
@@ -273,6 +367,23 @@ const kvInterface = (
       }
     },
 
+    /**
+     * Executes a series of operations within a transaction, ensuring all or nothing execution.
+     *
+     * @param {(tx: KvInterface) => Promise<T>} cb - The functionality to be run within the transaction.
+     * @param {TransactionMode} [mode="write"] - The transaction mode.
+     * @template T - Type of the return value of the user-defined callback function.
+     * @returns {Promise<T>} Returns whatever is returned by the user-defined cb function.
+     *
+     * @example
+     * ```ts
+     * await kv.transaction(async (tx) => {
+     *   await tx.set("temperature:london", "16");
+     *   await tx.set("temperature:rio_de_janeiro", "28");
+     * });
+     * console.log("Transaction committed");
+     * ```
+     */
     async transaction<T>(
       cb: (tx: KvInterface) => Promise<T>,
       mode: TransactionMode = "write",
@@ -298,17 +409,47 @@ const kvInterface = (
         kvTransaction.close();
       }
     },
+
+    /**
+     * Synchronizes the embedded KV read-replica with the remote database.
+     *
+     * @returns {Promise<void>}
+     *
+     * @example
+     * ```ts
+     * await kv.sync();
+     * console.log("KV database synchronized");
+     * ```
+     */
     async sync(): Promise<void> {
       if ("sync" in instance && typeof instance.sync === "function") {
         await instance.sync();
       }
     },
+
+    /**
+     * Checks if the current operation is part of a transaction.
+     *
+     * @returns {boolean} Returns true if the current operation is part of a transaction, else false.
+     */
     isTransaction(): boolean {
       return (
         !("transaction" in instance) ||
         typeof instance.transaction !== "function"
       );
     },
+
+    /**
+     * Closes the KV client and cleans up resources.
+     *
+     * @returns {void}
+     *
+     * @example
+     * ```ts
+     * kv.close();
+     * console.log("KV client closed");
+     * ```
+     */
     close(): void {
       try {
         instance.close();
