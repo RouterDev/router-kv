@@ -2,9 +2,9 @@ import { createClient, load } from "./deps.ts";
 import { KVError, setupDatabase } from "./utils.ts";
 
 import type {
-  EventBuffer,
-  EventListener,
   KvEvent,
+  KvEventBuffer,
+  KvEventListener,
   KvInterface,
   KvListOptions,
   KvListOutput,
@@ -73,14 +73,14 @@ const openKV = async (
  * Provides the KV interface with methods to interact with the KV table.
  *
  * @param {Client | Transaction} instance - The database client or transaction instance.
- * @param {EventListener} [eventListener] - Optional event listener for KV events.
+ * @param {KvEventListener} [eventListener] - Optional event listener for KV events.
  * @returns {KvInterface} The KV interface.
  */
 const kvInterface = (
   instance: Client | Transaction,
-  eventListener?: EventListener,
+  eventListener?: KvEventListener,
 ): KvInterface => {
-  const eventBuffer: EventBuffer = [];
+  const eventBuffer: KvEventBuffer = [];
   return {
     get getEventBuffer() {
       return eventBuffer;

@@ -165,7 +165,7 @@ export type KvQueryResult = KvRecord<string>;
  * @callback EventListener
  * @param {KvEvent} kvEvent - Object passed by set or delete executions. Gives context on what method called the eventListener, and contains the updated rows.
  */
-export type EventListener = (kvEvent: KvEvent) => Promise<void>;
+export type KvEventListener = (kvEvent: KvEvent) => Promise<void>;
 
 /**
  * The optional object optionally containing readReplicaPath, syncInterval, and eventListener.
@@ -173,19 +173,19 @@ export type EventListener = (kvEvent: KvEvent) => Promise<void>;
  * @typedef {Object} OpenKVOptions
  * @property {string} [readReplicaPath] - The file path of the local read replica DB to be used for read operations.
  * @property {number} [syncInterval] - The number of seconds between each sync from the Turso DB to the local read replica.
- * @property {EventListener} [eventListener] - If provided, this function will be called when get and delete methods and will be supplied a KvEvent object detailing the changes to the KV.
+ * @property {KvEventListener} [eventListener] - If provided, this function will be called when get and delete methods and will be supplied a KvEvent object detailing the changes to the KV.
  */
 export type OpenKVOptions = {
   readReplicaPath?: string;
   syncInterval?: number;
-  eventListener?: EventListener;
+  eventListener?: KvEventListener;
 };
 
 /**
  * Type of the internal buffer of the kv interface which queues KvEvents if set or delete called in a transaction.
  * If the transaction is committed, they are passed to the eventListener callback function.
  */
-export type EventBuffer = Array<KvEvent>;
+export type KvEventBuffer = Array<KvEvent>;
 
 /**
  * The type of the object that is given to the user-provided eventListener function.
