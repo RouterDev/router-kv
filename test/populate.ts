@@ -1,7 +1,7 @@
+import { load } from "../dev_deps.ts";
 import { openKV } from "../mod.ts";
-import { load } from "../deps.ts";
 
-await load();
+await load({ export: true });
 
 const url = Deno.env.get("KV_URL");
 const authToken = Deno.env.get("KV_TOKEN");
@@ -18,9 +18,7 @@ type GithubRepoRecord = {
   full_name: string;
 };
 
-const dummyData = await Deno.readTextFile(
-  "./test/github-repo-dataset.json",
-);
+const dummyData = await Deno.readTextFile("./test/github-repo-dataset.json");
 const dummyJSON: GithubRepoRecord[] = JSON.parse(dummyData);
 
 for (const record of dummyJSON) {
