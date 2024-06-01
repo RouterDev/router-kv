@@ -57,49 +57,52 @@ export type KvListOutput<T> = {
 /**
  * Interface for the main KV client, providing comprehensive methods to interact with the KV table.
  * Each method supports synchronous and transactional operations, ensuring data consistency and integrity.
- *
- * @interface KvInterface
  */
-export type KvInterface = {
-  /**
-   * Method for accessing the event buffer property used for storing KvEvents whilst in a transaction for passing to the eventListener callback function upon transaction commit.
-   */
-  get getEventBuffer(): Array<KvEvent>;
-
-  /**
-   * Synchronizes the local KV read-replica table with the cloud-based table.
-   * @returns {Promise<void>}
-   */
-  sync(): Promise<void>;
-
-  /**
-   * Closes the KV client and cleans up resources.
-   */
-  close(): void;
-
+export interface KvInterface {
   /**
    * Sets a key-value pair in the KV table.
+   *
    * @param {string} key - The key to set/update.
    * @param {KvValue} value - The value to set.
    * @template T - Optional template to cast return objects value property from KvValue to T.
    * @returns {Promise<KvRecord<T> | null>} KvRecord object describing the record of the KV store that has been set, alternatively returns null if key has been set to null.
+   *
+   * @example
+   * ```ts
+   * const record = await kv.set<number>("temperature:london", 16);
+   * console.log(record); // { k: "temperature:london", v: 16, created_at: "...", updated_at: "..." }
+   * ```
    */
   set<T>(key: string, value: KvValue): Promise<KvRecord<T> | null>;
 
   /**
    * Retrieves the value for a specified key if it exists.
+   *
    * @param {string} key - The key to retrieve the value for.
    * @template T - Optional template to cast return objects value property from KvValue to T.
    * @returns {Promise<KvRecord<T> | null>} The KvRecord object describing the record corresponding to the given key if it exists in the table, else null.
+   *
+   * @example
+   * ```ts
+   * const record = await kv.get<number>("temperature:london");
+   * console.log(record); // { k: "temperature:london", v: 16, created_at: "...", updated_at: "..." }
+   * ```
    */
   get<T>(key: string): Promise<KvRecord<T> | null>;
 
   /**
    * Lists entries in the KV table based on prefix and other options.
+   *
    * @param {string} prefix - Allows for optional filtering by matching prefixes, set this to "" to include all keys.
    * @param {Partial<KvListOptions>} [options] - The options that pick the ordering, pagination, and whether to include exact prefix match.
    * @template T - Optional template to cast return objects value property from KvValue to T.
    * @returns {Promise<KvListOutput<T>>} KvListOutput object containing the array of KvRecord objects describing the query result, and a meta object describing the options that called the KvInterface.list, as well as the number of rows.
+   *
+   * @example
+   * ```ts
+   * const result = await kv.list<number>("temperature:");
+   * console.log(result); // { data: [...], meta: { limit: 100, offset: 0, reverse: false, orderBy: "k", total: ... } }
+   * ```
    */
   list<T>(
     prefix: string,
@@ -108,32 +111,84 @@ export type KvInterface = {
 
   /**
    * Deletes a specific key-value pair if it exists.
+   *
    * @param {string} key - Key for which removal of KV pair will occur, if it exists.
    * @returns {Promise<void>}
+   *
+   * @example
+   * ```ts
+   * await kv.delete("temperature:london");
+   * console.log("Record deleted");
+   * ```
    */
   delete(key: string): Promise<void>;
 
   /**
    * Deletes all key-value pairs with keys beginning with prefix in the KV table. Should be used with extreme caution.
-   * @param {string} [prefix] - All records with key starting with this string will be deleted. Not providing prefix will cause all delete ALL records.
+   *
+   * @param {string} [prefix=""] - All records with key starting with this string will be deleted. Not providing prefix will cause all delete ALL records.
    * @returns {Promise<void>}
+   *
+   * @example
+   * ```ts
+   * await kv.deleteAll("temperature:");
+   * console.log("All records with the prefix deleted");
+   * ```
    */
   deleteAll(prefix?: string): Promise<void>;
 
   /**
    * Executes a series of operations within a transaction, ensuring all or nothing execution.
+   *
    * @param {(tx: KvInterface) => Promise<T>} cb - The functionality to be run within the transaction.
+   * @param {TransactionMode} [mode="write"] - The transaction mode.
    * @template T - Type of the return value of the user-defined callback function.
    * @returns {Promise<T>} Returns whatever is returned by the user-defined cb function.
+   *
+   * @example
+   * ```ts
+   * await kv.transaction(async (tx) => {
+   *   await tx.set("temperature:london", "16");
+   *   await tx.set("temperature:rio_de_janeiro", "28");
+   * });
+   * console.log("Transaction committed");
+   * ```
    */
   transaction<T = unknown>(cb: (tx: KvInterface) => Promise<T>): Promise<T>;
 
   /**
+   * Synchronizes the embedded KV read-replica with the remote database.
+   *
+   * @returns {Promise<void>}
+   *
+   * @example
+   * ```ts
+   * await kv.sync();
+   * console.log("KV database synchronized");
+   * ```
+   */
+  sync(): Promise<void>;
+
+  /**
    * Checks if the current operation is part of a transaction.
-   * @returns {boolean}
+   *
+   * @returns {boolean} Returns true if the current operation is part of a transaction, else false.
    */
   isTransaction(): boolean;
-};
+
+  /**
+   * Closes the KV client and cleans up resources.
+   *
+   * @returns {void}
+   *
+   * @example
+   * ```ts
+   * kv.close();
+   * console.log("KV client closed");
+   * ```
+   */
+  close(): void;
+}
 
 /**
  * Describes KV query results obtained from methods such as `kv.get()` and `kv.list()`.
@@ -180,12 +235,6 @@ export type OpenKVOptions = {
   syncInterval?: number;
   eventListener?: KvEventListener;
 };
-
-/**
- * Type of the internal buffer of the kv interface which queues KvEvents if set or delete called in a transaction.
- * If the transaction is committed, they are passed to the eventListener callback function.
- */
-export type KvEventBuffer = Array<KvEvent>;
 
 /**
  * The type of the object that is given to the user-provided eventListener function.
