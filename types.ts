@@ -84,7 +84,7 @@ export interface KvInterface {
    *
    * @example
    * ```ts
-   * const record = await kv.get<number>("temperature:london");
+   * const record = await KvInterface.get<number>("temperature:london");
    * console.log(record); // { k: "temperature:london", v: 16, created_at: "...", updated_at: "..." }
    * ```
    */
@@ -191,7 +191,7 @@ export interface KvInterface {
 }
 
 /**
- * Describes KV query results obtained from methods such as `kv.get()` and `kv.list()`.
+ * Describes KV query results obtained from methods such as `KvInterface.get()` and `kv.list()`.
  *
  * @typedef {Object} KvRecord
  * @template T - Type of the value column in the KV query result.
