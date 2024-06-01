@@ -2,11 +2,13 @@ import { createClient } from "./deps.ts";
 import { KVError, setupDatabase } from "./utils.ts";
 
 import type {
+  Json,
   KvEvent,
   KvEventListener,
   KvInterface,
   KvListOptions,
   KvListOutput,
+  KvMetaData,
   KvQueryResult,
   KvRecord,
   KvValue,
@@ -334,11 +336,13 @@ class Kv implements KvInterface {
 
 export { openKV };
 export type {
+  Json,
   KvEvent,
   KvEventListener,
   KvInterface,
   KvListOptions,
   KvListOutput,
+  KvMetaData,
   KvRecord,
   KvValue,
   OpenKVOptions,
