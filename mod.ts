@@ -36,6 +36,7 @@ await load({ export: true });
 /**
  * Opens a connection to the KV database and sets up the necessary structures.
  *
+ * @function
  * @param {string} url - The URL of the KV database.
  * @param {string} authToken - The authentication token for the database.
  * @param {OpenKVOptions} [options] - Optional settings for the KV client.
