@@ -1,4 +1,4 @@
-import { createClient, load } from "./deps.ts";
+import { createClient } from "./deps.ts";
 import { KVError, setupDatabase } from "./utils.ts";
 
 import type {
@@ -14,8 +14,6 @@ import type {
   OpenKVOptions,
 } from "./types.ts";
 import type { Client, Config, Transaction, TransactionMode } from "./deps.ts";
-
-await load({ export: true });
 
 /**
  * Opens a connection to the KV database and sets up the necessary structures.

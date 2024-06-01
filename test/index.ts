@@ -1,6 +1,8 @@
 import { openKV } from "../mod.ts";
 import type { Json, KvValue } from "../types.ts";
-import { assert, assertEquals, fail } from "../dev_deps.ts";
+import { assert, assertEquals, fail, load } from "../dev_deps.ts";
+
+await load({ export: true });
 
 const DEFAULT_KV_LIST_OPTIONS_LIMIT = 100;
 
