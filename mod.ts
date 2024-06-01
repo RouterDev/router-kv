@@ -444,3 +444,13 @@ const kvInterface = (
 };
 
 export { openKV };
+export type {
+  KvEvent,
+  KvEventListener,
+  KvInterface,
+  KvListOptions,
+  KvListOutput,
+  KvRecord,
+  KvValue,
+  OpenKVOptions,
+};
