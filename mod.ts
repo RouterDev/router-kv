@@ -1,19 +1,3 @@
-/**
- * This module provides a key-value store interface for Turso, allowing for
- * basic CRUD operations, transactions, and synchronization with a read replica.
- *
- * ```ts
- * import { openKV } from "jsr:@router/kv";
- *
- * const kv = await openKV("libsql://example.turso.io", "authToken");
- *
- * const record = await kv.get<number>("temperature:london");
- * console.log(record); // { k: "temperature:london", v: 16, created_at: "...", updated_at: "..." }
- * ```
- *
- * @module
- */
-
 import { createClient, load } from "./deps.ts";
 import { KVError, setupDatabase } from "./utils.ts";
 
