@@ -3,8 +3,7 @@
   "packages": {
     "specifiers": {
       "jsr:@std/dotenv@^0.224.0": "jsr:@std/dotenv@0.224.0",
-      "npm:@libsql/client@0.6.0": "npm:@libsql/client@0.6.0",
-      "npm:@types/node": "npm:@types/node@18.16.19"
+      "npm:@libsql/client@0.6.2": "npm:@libsql/client@0.6.2"
     },
     "jsr": {
       "@std/dotenv@0.224.0": {
@@ -12,31 +11,31 @@
       }
     },
     "npm": {
-      "@libsql/client@0.6.0": {
-        "integrity": "sha512-qhQzTG/y2IEVbL3+9PULDvlQFWJ/RnjFXECr/Nc3nRngGiiMysDaOV5VUzYk7DulUX98EA4wi+z3FspKrUplUA==",
+      "@libsql/client@0.6.2": {
+        "integrity": "sha512-xRNfRLv/dOCbV4qd+M0baQwGmvuZpMd2wG2UAPs8XmcdaPvu5ErkcaeITkxlm3hDEJVabQM1cFhMBxsugWW9fQ==",
         "dependencies": {
-          "@libsql/core": "@libsql/core@0.6.0",
-          "@libsql/hrana-client": "@libsql/hrana-client@0.6.0",
+          "@libsql/core": "@libsql/core@0.6.2",
+          "@libsql/hrana-client": "@libsql/hrana-client@0.6.2",
           "js-base64": "js-base64@3.7.7",
-          "libsql": "libsql@0.3.10"
+          "libsql": "libsql@0.3.18"
         }
       },
-      "@libsql/core@0.6.0": {
-        "integrity": "sha512-affAB8vSqQwqI9NBDJ5uJCVaHoOAS2pOpbv1kWConh1SBbmJBnHHd4KG73RAJ2sgd2+NbT9WA+XJBqxgp28YSw==",
+      "@libsql/core@0.6.2": {
+        "integrity": "sha512-c2P4M+4u/4b2L02A0KjggO3UW51rGkhxr/7fzJO0fEAqsqrWGxuNj2YtRkina/oxfYvAof6xjp8RucNoIV/Odw==",
         "dependencies": {
           "js-base64": "js-base64@3.7.7"
         }
       },
-      "@libsql/darwin-arm64@0.3.10": {
-        "integrity": "sha512-RaexEFfPAFogd6dJlqkpCkTxdr6K14Z0286lodIJ8Ny77mWuWyBkWKxf70OYWXXAMxMJFUW+6al1F3/Osf/pTg==",
+      "@libsql/darwin-arm64@0.3.18": {
+        "integrity": "sha512-Zt49dt+cwhPCkuoWgvjbQd4ckNfCJR5xzIAyhgHl3CBZqZaEuaXTOGKLNQT7bnFRPuQcdLt5PBT1cenKu2N6pA==",
         "dependencies": {}
       },
-      "@libsql/darwin-x64@0.3.10": {
-        "integrity": "sha512-SNVN6n4qNUdMW1fJMFmx4qn4n5RnXsxjFbczpkzG/V7m/5VeTFt1chhGcrahTHCr3+K6eRJWJUEQHRGqjBwPkw==",
+      "@libsql/darwin-x64@0.3.18": {
+        "integrity": "sha512-faq6HUGDaNaueeqPei5cypHaD/hhazUyfHo094CXiEeRZq6ZKtNl5PHdlr8jE/Uw8USNpVVQaLdnvSgKcpRPHw==",
         "dependencies": {}
       },
-      "@libsql/hrana-client@0.6.0": {
-        "integrity": "sha512-k+fqzdjqg3IvWfKmVJK5StsbjeTcyNAXFelUbXbGNz3yH1gEVT9mZ6kmhsIXP30ZSyVV0AE1Gi25p82mxC9hwg==",
+      "@libsql/hrana-client@0.6.2": {
+        "integrity": "sha512-MWxgD7mXLNf9FXXiM0bc90wCjZSpErWKr5mGza7ERy2FJNNMXd7JIOv+DepBA1FQTIfI8TFO4/QDYgaQC0goNw==",
         "dependencies": {
           "@libsql/isomorphic-fetch": "@libsql/isomorphic-fetch@0.2.1",
           "@libsql/isomorphic-ws": "@libsql/isomorphic-ws@0.1.5",
@@ -52,27 +51,27 @@
         "integrity": "sha512-DtLWIH29onUYR00i0GlQ3UdcTRC6EP4u9w/h9LxpUZJWRMARk6dQwZ6Jkd+QdwVpuAOrdxt18v0K2uIYR3fwFg==",
         "dependencies": {
           "@types/ws": "@types/ws@8.5.10",
-          "ws": "ws@8.16.0"
+          "ws": "ws@8.17.0"
         }
       },
-      "@libsql/linux-arm64-gnu@0.3.10": {
-        "integrity": "sha512-2uXpi9d8qtyIOr7pyG4a88j6YXgemyIHEs2Wbp+PPletlCIPsFS+E7IQHbz8VwTohchOzcokGUm1Bc5QC+A7wg==",
+      "@libsql/linux-arm64-gnu@0.3.18": {
+        "integrity": "sha512-5m9xtDAhoyLSV54tho9uQ2ZIDeJWc0vU3Xpe/VK4+6bpURISs23qNhXiCrZnnq3oV0hFlBfcIgQUIATmb6jD2A==",
         "dependencies": {}
       },
-      "@libsql/linux-arm64-musl@0.3.10": {
-        "integrity": "sha512-72SN1FUavLvzHddCS861ynSpQndcW5oLGKA3U8CyMfgIZIwJAPc7+48Uj1plW00htXBx4GBpcntFp68KKIx3YQ==",
+      "@libsql/linux-arm64-musl@0.3.18": {
+        "integrity": "sha512-oYD5+oM2gPEalp+EoR5DVQBRtdGjLsocjsRbQs5O2m4WOBJKER7VUfDYZHsifLGZoBSc11Yo6s9IR9rjGWy20w==",
         "dependencies": {}
       },
-      "@libsql/linux-x64-gnu@0.3.10": {
-        "integrity": "sha512-hXyNqVRi7ONuyWZ1SX6setxL0QaQ7InyS3bHLupsi9s7NpOGD5vcpTaYicJOqmIIm+6kt8vJfmo7ZxlarIHy7Q==",
+      "@libsql/linux-x64-gnu@0.3.18": {
+        "integrity": "sha512-QDSSP60nS8KIldGE7H3bpEflQHiL1erwED6huoVJdmDFxsyDJX2CYdWUWW8Za0ZUOvUbnEWAOyMhp6j1dBbZqw==",
         "dependencies": {}
       },
-      "@libsql/linux-x64-musl@0.3.10": {
-        "integrity": "sha512-kNmIRxomVwt9S+cLyYS497F/3gXFF4r8wW12YSBQgxG75JYft07AHVd8J7HINg+oqRkLzT0s+mVX5dM6nk68EQ==",
+      "@libsql/linux-x64-musl@0.3.18": {
+        "integrity": "sha512-5SXwTlaLCUPzxYyq+P0c7Ko7tcEjpd1X6RZKe1DuRFmJPg6f7j2+LrPEhMSIbqKcrl5ACUUAyoKmGZqNYwz23w==",
         "dependencies": {}
       },
-      "@libsql/win32-x64-msvc@0.3.10": {
-        "integrity": "sha512-c/6rjdtGULKrJkLgfLobFefObfOtxjXGmCfPxv6pr0epPCeUEssfDbDIeEH9fQUgzogIMWEHwT8so52UJ/iT1Q==",
+      "@libsql/win32-x64-msvc@0.3.18": {
+        "integrity": "sha512-9EEIHz+e8tTbx9TMkb8ByZnzxc0pYFirK1nSbqC6cFEST95fiY0NCfQ/zAzJxe90KckbjifX6BbO69eWIi3TAg==",
         "dependencies": {}
       },
       "@neon-rs/load@0.0.4": {
@@ -114,16 +113,16 @@
         "integrity": "sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==",
         "dependencies": {}
       },
-      "libsql@0.3.10": {
-        "integrity": "sha512-/8YMTbwWFPmrDWY+YFK3kYqVPFkMgQre0DGmBaOmjogMdSe+7GHm1/q9AZ61AWkEub/vHmi+bA4tqIzVhKnqzg==",
+      "libsql@0.3.18": {
+        "integrity": "sha512-lvhKr7WV3NLWRbXkjn/MeKqXOAqWKU0PX9QYrvDh7fneukapj+iUQ4qgJASrQyxcCrEsClXCQiiK5W6OoYPAlA==",
         "dependencies": {
-          "@libsql/darwin-arm64": "@libsql/darwin-arm64@0.3.10",
-          "@libsql/darwin-x64": "@libsql/darwin-x64@0.3.10",
-          "@libsql/linux-arm64-gnu": "@libsql/linux-arm64-gnu@0.3.10",
-          "@libsql/linux-arm64-musl": "@libsql/linux-arm64-musl@0.3.10",
-          "@libsql/linux-x64-gnu": "@libsql/linux-x64-gnu@0.3.10",
-          "@libsql/linux-x64-musl": "@libsql/linux-x64-musl@0.3.10",
-          "@libsql/win32-x64-msvc": "@libsql/win32-x64-msvc@0.3.10",
+          "@libsql/darwin-arm64": "@libsql/darwin-arm64@0.3.18",
+          "@libsql/darwin-x64": "@libsql/darwin-x64@0.3.18",
+          "@libsql/linux-arm64-gnu": "@libsql/linux-arm64-gnu@0.3.18",
+          "@libsql/linux-arm64-musl": "@libsql/linux-arm64-musl@0.3.18",
+          "@libsql/linux-x64-gnu": "@libsql/linux-x64-gnu@0.3.18",
+          "@libsql/linux-x64-musl": "@libsql/linux-x64-musl@0.3.18",
+          "@libsql/win32-x64-msvc": "@libsql/win32-x64-msvc@0.3.18",
           "@neon-rs/load": "@neon-rs/load@0.0.4",
           "detect-libc": "detect-libc@2.0.2"
         }
@@ -144,8 +143,8 @@
         "integrity": "sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==",
         "dependencies": {}
       },
-      "ws@8.16.0": {
-        "integrity": "sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==",
+      "ws@8.17.0": {
+        "integrity": "sha512-uJq6108EgZMAl20KagGkzCKfMEjxmKvZHG7Tlq0Z6nOky7YF7aq4mOx6xK8TJ/i1LeK4Qus7INktacctDgY8Ow==",
         "dependencies": {}
       }
     }
@@ -154,45 +153,6 @@
     "https://deno.land/std@0.192.0/fmt/colors.ts": "d67e3cd9f472535241a8e410d33423980bec45047e343577554d3356e1f0ef4e",
     "https://deno.land/std@0.192.0/testing/_diff.ts": "1a3c044aedf77647d6cac86b798c6417603361b66b54c53331b312caeb447aea",
     "https://deno.land/std@0.192.0/testing/_format.ts": "a69126e8a469009adf4cf2a50af889aca364c349797e63174884a52ff75cf4c7",
-    "https://deno.land/std@0.192.0/testing/asserts.ts": "e16d98b4d73ffc4ed498d717307a12500ae4f2cbe668f1a215632d19fcffc22f",
-    "https://deno.land/std@0.220.0/assert/_constants.ts": "a271e8ef5a573f1df8e822a6eb9d09df064ad66a4390f21b3e31f820a38e0975",
-    "https://deno.land/std@0.220.0/assert/_diff.ts": "4bf42969aa8b1a33aaf23eb8e478b011bfaa31b82d85d2ff4b5c4662d8780d2b",
-    "https://deno.land/std@0.220.0/assert/_format.ts": "0ba808961bf678437fb486b56405b6fefad2cf87b5809667c781ddee8c32aff4",
-    "https://deno.land/std@0.220.0/assert/assert.ts": "bec068b2fccdd434c138a555b19a2c2393b71dfaada02b7d568a01541e67cdc5",
-    "https://deno.land/std@0.220.0/assert/assert_almost_equals.ts": "8b96b7385cc117668b0720115eb6ee73d04c9bcb2f5d2344d674918c9113688f",
-    "https://deno.land/std@0.220.0/assert/assert_array_includes.ts": "1688d76317fd45b7e93ef9e2765f112fdf2b7c9821016cdfb380b9445374aed1",
-    "https://deno.land/std@0.220.0/assert/assert_equals.ts": "4497c56fe7d2993b0d447926702802fc0becb44e319079e8eca39b482ee01b4e",
-    "https://deno.land/std@0.220.0/assert/assert_exists.ts": "24a7bf965e634f909242cd09fbaf38bde6b791128ece08e33ab08586a7cc55c9",
-    "https://deno.land/std@0.220.0/assert/assert_false.ts": "6f382568e5128c0f855e5f7dbda8624c1ed9af4fcc33ef4a9afeeedcdce99769",
-    "https://deno.land/std@0.220.0/assert/assert_greater.ts": "4945cf5729f1a38874d7e589e0fe5cc5cd5abe5573ca2ddca9d3791aa891856c",
-    "https://deno.land/std@0.220.0/assert/assert_greater_or_equal.ts": "573ed8823283b8d94b7443eb69a849a3c369a8eb9666b2d1db50c33763a5d219",
-    "https://deno.land/std@0.220.0/assert/assert_instance_of.ts": "72dc1faff1e248692d873c89382fa1579dd7b53b56d52f37f9874a75b11ba444",
-    "https://deno.land/std@0.220.0/assert/assert_is_error.ts": "6596f2b5ba89ba2fe9b074f75e9318cda97a2381e59d476812e30077fbdb6ed2",
-    "https://deno.land/std@0.220.0/assert/assert_less.ts": "2b4b3fe7910f65f7be52212f19c3977ecb8ba5b2d6d0a296c83cde42920bb005",
-    "https://deno.land/std@0.220.0/assert/assert_less_or_equal.ts": "b93d212fe669fbde959e35b3437ac9a4468f2e6b77377e7b6ea2cfdd825d38a0",
-    "https://deno.land/std@0.220.0/assert/assert_match.ts": "ec2d9680ed3e7b9746ec57ec923a17eef6d476202f339ad91d22277d7f1d16e1",
-    "https://deno.land/std@0.220.0/assert/assert_not_equals.ts": "ac86413ab70ffb14fdfc41740ba579a983fe355ba0ce4a9ab685e6b8e7f6a250",
-    "https://deno.land/std@0.220.0/assert/assert_not_instance_of.ts": "8f720d92d83775c40b2542a8d76c60c2d4aeddaf8713c8d11df8984af2604931",
-    "https://deno.land/std@0.220.0/assert/assert_not_match.ts": "b4b7c77f146963e2b673c1ce4846473703409eb93f5ab0eb60f6e6f8aeffe39f",
-    "https://deno.land/std@0.220.0/assert/assert_not_strict_equals.ts": "da0b8ab60a45d5a9371088378e5313f624799470c3b54c76e8b8abeec40a77be",
-    "https://deno.land/std@0.220.0/assert/assert_object_match.ts": "e85e5eef62a56ce364c3afdd27978ccab979288a3e772e6855c270a7b118fa49",
-    "https://deno.land/std@0.220.0/assert/assert_rejects.ts": "5206ac37d883797d9504e3915a0c7b692df6efcdefff3889cc14bb5a325641dd",
-    "https://deno.land/std@0.220.0/assert/assert_strict_equals.ts": "0425a98f70badccb151644c902384c12771a93e65f8ff610244b8147b03a2366",
-    "https://deno.land/std@0.220.0/assert/assert_string_includes.ts": "dfb072a890167146f8e5bdd6fde887ce4657098e9f71f12716ef37f35fb6f4a7",
-    "https://deno.land/std@0.220.0/assert/assert_throws.ts": "31f3c061338aec2c2c33731973d58ccd4f14e42f355501541409ee958d2eb8e5",
-    "https://deno.land/std@0.220.0/assert/assertion_error.ts": "9f689a101ee586c4ce92f52fa7ddd362e86434ffdf1f848e45987dc7689976b8",
-    "https://deno.land/std@0.220.0/assert/equal.ts": "fae5e8a52a11d3ac694bbe1a53e13a7969e3f60791262312e91a3e741ae519e2",
-    "https://deno.land/std@0.220.0/assert/fail.ts": "f310e51992bac8e54f5fd8e44d098638434b2edb802383690e0d7a9be1979f1c",
-    "https://deno.land/std@0.220.0/assert/mod.ts": "7e41449e77a31fef91534379716971bebcfc12686e143d38ada5438e04d4a90e",
-    "https://deno.land/std@0.220.0/assert/unimplemented.ts": "47ca67d1c6dc53abd0bd729b71a31e0825fc452dbcd4fde4ca06789d5644e7fd",
-    "https://deno.land/std@0.220.0/assert/unreachable.ts": "3670816a4ab3214349acb6730e3e6f5299021234657eefe05b48092f3848c270",
-    "https://deno.land/std@0.220.0/fmt/colors.ts": "d239d84620b921ea520125d778947881f62c50e78deef2657073840b8af9559a",
-    "https://deno.land/std@0.221.0/dotenv/mod.ts": "0180eaeedaaf88647318811cdaa418cc64dc51fb08354f91f5f480d0a1309f7d",
-    "https://deno.land/std@0.221.0/dotenv/parse.ts": "09977ff88dfd1f24f9973a338f0f91bbdb9307eb5ff6085446e7c423e4c7ba0c",
-    "https://deno.land/std@0.221.0/dotenv/stringify.ts": "0047ad7068289735d08964046aea267a750c141b494ca0e38831b89be6c020c2",
-    "https://deno.land/x/dotenv@v3.2.2/mod.ts": "077b48773de9205266a0b44c3c3a3c3083449ed64bb0b6cc461b95720678d38e",
-    "https://deno.land/x/dotenv@v3.2.2/util.ts": "693730877b13f8ead2b79b2aa31e2a0652862f7dc0c5f6d2f313f4d39c7b7670",
-    "https://esm.sh/@faker-js/faker@v8.4.0": "3b580236f3f8c85a7b2b589e685a265367d4d548add82207dfc9fba6a50df32e",
-    "https://esm.sh/v135/@faker-js/faker@8.4.0/denonext/faker.mjs": "6d41425710d5f98197ac4842005814ca5375aaa0f57a504b3e138a4a5e1efa02"
+    "https://deno.land/std@0.192.0/testing/asserts.ts": "e16d98b4d73ffc4ed498d717307a12500ae4f2cbe668f1a215632d19fcffc22f"
   }
 }
