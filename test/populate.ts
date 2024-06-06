@@ -5,12 +5,14 @@ await load({ export: true });
 
 const url = Deno.env.get("KV_URL");
 const authToken = Deno.env.get("KV_TOKEN");
-const syncUrl = Deno.env.get("KV_SYNC_URL");
+const embeddedReplicaPath = Deno.env.get("KV_EMBEDDED_REPLICA_PATH");
 
 if (!url) throw new Error("No url");
 if (!authToken) throw new Error("No authToken");
 
-const kv = await openKV(url, authToken, { readReplicaPath: syncUrl });
+const kv = await openKV(url, authToken, {
+  embeddedReplicaPath: embeddedReplicaPath,
+});
 
 type GithubRepoRecord = {
   id: number;

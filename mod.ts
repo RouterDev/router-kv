@@ -56,8 +56,8 @@ async function openKV(
     syncInterval: undefined,
   };
 
-  if (options?.readReplicaPath) {
-    config.url = options.readReplicaPath;
+  if (options?.embeddedReplicaPath) {
+    config.url = options.embeddedReplicaPath;
     config.syncUrl = url;
     config.syncInterval = options?.syncInterval;
   }

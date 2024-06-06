@@ -7,7 +7,7 @@ await load({ export: true });
 const DEFAULT_KV_LIST_OPTIONS_LIMIT = 100;
 
 const url = Deno.env.get("KV_URL");
-const syncUrl = Deno.env.get("KV_SYNC_URL");
+const embeddedReplicaPath = Deno.env.get("KV_EMBEDDED_REPLICA_PATH");
 const authToken = Deno.env.get("KV_TOKEN");
 const syncInterval = Deno.env.get("KV_SYNC_INTERVAL");
 
@@ -20,7 +20,7 @@ if (!authToken) {
 }
 
 const options = {
-  readReplicaPath: syncUrl,
+  embeddedReplicaPath: embeddedReplicaPath,
   syncInterval: syncInterval ? Number(syncInterval) : undefined,
 };
 

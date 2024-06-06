@@ -253,15 +253,15 @@ export type KvQueryResult = KvRecord<string>;
 export type KvEventListener = (kvEvent: KvEvent) => Promise<void>;
 
 /**
- * The optional object optionally containing readReplicaPath, syncInterval, and eventListener.
+ * The optional object optionally containing embeddedReplicaPath, syncInterval, and eventListener.
  *
  * @typedef {Object} OpenKVOptions
- * @property {string} [readReplicaPath] - The file path of the local read replica DB to be used for read operations.
+ * @property {string} [embeddedReplicaPath] - The file path of the local DB to be used for read operations.
  * @property {number} [syncInterval] - The number of seconds between each sync from the Turso DB to the local read replica.
  * @property {KvEventListener} [eventListener] - If provided, this function will be called when get and delete methods and will be supplied a KvEvent object detailing the changes to the KV.
  */
 export type OpenKVOptions = {
-  readReplicaPath?: string;
+  embeddedReplicaPath?: string;
   syncInterval?: number;
   eventListener?: KvEventListener;
 };
