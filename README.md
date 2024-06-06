@@ -77,7 +77,8 @@ kv.deleteAll("scores:");
 
 ### Transaction
 
-Executes a series of operations within a transaction, ensuring all or nothing execution.
+Executes a series of operations within a transaction, ensuring all or nothing
+execution.
 
 ```ts
 async function claimBonus(user: string) {
@@ -87,7 +88,7 @@ async function claimBonus(user: string) {
     const score = await kv.transaction<number>(async (tx) => {
       // check if the user has claimed the bonus already
       const hasClaimedBonus = (await tx.get(
-        `bonuses:${user}`
+        `bonuses:${user}`,
       )) as KvQueryResult<number>;
       if (hasClaimedBonus) {
         throw new Error("Bonus already claimed!");
@@ -95,7 +96,7 @@ async function claimBonus(user: string) {
 
       // get the users current score
       const usersScore = (await tx.get(
-        `scores:${user}`
+        `scores:${user}`,
       )) as KvQueryResult<number>;
 
       // calculate the users updated score
