@@ -69,8 +69,8 @@ export interface KvInterface {
    *
    * @example
    * ```ts
-   * const record = await kv.set<number>("temperature:london", 16);
-   * console.log(record); // { k: "temperature:london", v: 16, created_at: "...", updated_at: "..." }
+   * const record = await kv.set<number>("scores:@gillmanseb", 42);
+   * console.log(record); // { k: "scores:@gillmanseb", v: 42, created_at: "...", updated_at: "..." }
    * ```
    */
   set<T>(key: string, value: KvValue): Promise<KvRecord<T> | null>;
@@ -84,8 +84,8 @@ export interface KvInterface {
    *
    * @example
    * ```ts
-   * const record = await KvInterface.get<number>("temperature:london");
-   * console.log(record); // { k: "temperature:london", v: 16, created_at: "...", updated_at: "..." }
+   * const record = await kv.get<number>("scores:@gillmanseb");
+   * console.log(record); // { k: "scores:@gillmanseb", v: 42, created_at: "...", updated_at: "..." }
    * ```
    */
   get<T>(key: string): Promise<KvRecord<T> | null>;
@@ -100,7 +100,7 @@ export interface KvInterface {
    *
    * @example
    * ```ts
-   * const result = await kv.list<number>("temperature:");
+   * const result = await kv.list<number>("scores:");
    * console.log(result); // { data: [...], meta: { limit: 100, offset: 0, reverse: false, orderBy: "k", total: ... } }
    * ```
    */
@@ -117,7 +117,7 @@ export interface KvInterface {
    *
    * @example
    * ```ts
-   * await kv.delete("temperature:london");
+   * await kv.delete("scores:@gillmanseb");
    * console.log("Record deleted");
    * ```
    */
@@ -131,7 +131,7 @@ export interface KvInterface {
    *
    * @example
    * ```ts
-   * await kv.deleteAll("temperature:");
+   * await kv.deleteAll("scores:");
    * console.log("All records with the prefix deleted");
    * ```
    */
@@ -147,10 +147,40 @@ export interface KvInterface {
    *
    * @example
    * ```ts
-   * await kv.transaction(async (tx) => {
-   *   await tx.set("temperature:london", "16");
-   *   await tx.set("temperature:rio_de_janeiro", "28");
-   * });
+   * try {
+   *  const bonusValue = 100;
+   *
+   *  const score = await kv.transaction<number>(async (tx) => {
+   *    // check if the user has claimed the bonus already
+   *    const hasClaimedBonus = await tx.get(`bonuses:${user}`) as KvQueryResult<number>;
+   *    if (hasClaimedBonus) {
+   *      throw new Error("Bonus already claimed!");
+   *    }
+   *
+   *    // get the users current score
+   *    const usersScore = await tx.get(`scores:${user}`) as KvQueryResult<number>;
+   *
+   *    // calculate the users updated score
+   *    const currentScore = usersScore?.v ?? 0
+   *    const updatedScore = currentScore + bonusValue;
+   *
+   *    // update the users score
+   *    await tx.set(`scores:${user}`, updatedScore);
+   *
+   *    // mark the user as having claimed the bonus
+   *    await tx.set(`bonuses:${user}`, true);
+   *
+   *    // return the updated score
+   *    return updatedScore;
+   *  });
+   *
+   *  console.log(
+   *    "Bonus applied!",
+   *    `Your new score is ${score}`,
+   *  );
+   * } catch (error) {
+   *   console.error(error.message);
+   * }
    * console.log("Transaction committed");
    * ```
    */
