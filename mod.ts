@@ -20,7 +20,6 @@ import type { Client, Config, Transaction, TransactionMode } from "./deps.ts";
  * Opens a connection to the KV database and sets up the necessary structures.
  *
  * @param {string} url - The URL of the KV database.
- * @param {string} authToken - The authentication token for the database.
  * @param {OpenKVOptions} [options] - Optional settings for the KV client.
  * @returns {Promise<KvInterface>} A promise that resolves to the KV interface.
  *
@@ -28,7 +27,9 @@ import type { Client, Config, Transaction, TransactionMode } from "./deps.ts";
  * ```ts
  * import { openKV } from "jsr:@router/kv";
  *
- * const kv = await openKV("libsql://example.turso.io", "authToken");
+ * const kv = await openKV("libsql://example.turso.io", {
+ *  authToken: "authToken"
+ * });
  * console.log("KV database opened");
  * ```
  */

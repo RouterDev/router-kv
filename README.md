@@ -27,12 +27,14 @@ import { openKV } from "jsr:@router/kv";
 ### Open a KV Store
 
 Open a connection to your KV store using the openKV function. Provide the URL
-and authentication token for your Turso database.
+and additional options.
 
 ```ts
 import { openKV } from "jsr:@router/kv";
 
-const kv = await openKV("libsql://example.turso.io", "authToken");
+const kv = await openKV("libsql://example.turso.io", {
+  authToken: "authToken",
+});
 ```
 
 ### Set
