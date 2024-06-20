@@ -64,7 +64,7 @@ await kv.list("scores:");
 Deletes a specific key-value pair if it exists.
 
 ```ts
-kv.delete("scores:@gillmanseb");
+await kv.delete("scores:@gillmanseb");
 ```
 
 ### Delete All
@@ -72,7 +72,7 @@ kv.delete("scores:@gillmanseb");
 Deletes all key-value pairs with keys beginning with prefix in the KV table.
 
 ```ts
-kv.deleteAll("scores:");
+await kv.deleteAll("scores:");
 ```
 
 ### Transaction
