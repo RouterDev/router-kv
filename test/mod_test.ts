@@ -1,5 +1,6 @@
 import {
   testClose,
+  testCreatedAtUpdatedAt,
   testDelete,
   testDeleteAll,
   testIncludeExactMatch,
@@ -34,6 +35,9 @@ Deno.test(
   "[set] check null deletes the record",
   async () => await testSet("test_string", null),
 );
+
+Deno.test("[set] created_at constant", async () =>
+  await testCreatedAtUpdatedAt());
 
 Deno.test("[list] return single record", async () => await testListLimit(1));
 

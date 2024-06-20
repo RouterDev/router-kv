@@ -286,3 +286,16 @@ export async function clearAndCreateDummyData() {
     await kv.set<Json>(`user:${record._id}`, record);
   }
 }
+
+export async function testCreatedAtUpdatedAt() {
+  const begin = await kv.set("test:created_at", 123);
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  const end = await kv.set("test:created_at", 321);
+  await kv.delete("created_at");
+
+  assert(begin?.created_at === begin?.updated_at);
+
+  assert(begin?.created_at === end?.created_at);
+  assert(begin?.updated_at !== end?.updated_at);
+}

@@ -90,8 +90,9 @@ class Kv implements KvInterface {
       const valueBlob = JSON.stringify(value);
       const resultSet = await this.instance.batch([
         {
-          sql: "INSERT OR REPLACE INTO kv (k, v) VALUES (?, ?);",
-          args: [key, valueBlob],
+          sql:
+            "INSERT INTO kv (k, v) VALUES (?, ?) ON CONFLICT(k) DO UPDATE SET v = ?;",
+          args: [key, valueBlob, valueBlob],
         },
         { sql: "SELECT * FROM kv WHERE k = ?", args: [key] },
       ]);
