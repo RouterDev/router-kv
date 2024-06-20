@@ -34,15 +34,10 @@ import type { Client, Config, Transaction, TransactionMode } from "./deps.ts";
  */
 async function openKV(
   url: string,
-  authToken: string,
   options?: OpenKVOptions,
 ): Promise<KvInterface> {
   if (!url) {
     throw new Error("DB url missing");
-  }
-
-  if (!authToken) {
-    throw new Error("DB AuthToken missing");
   }
 
   if (options?.syncInterval && isNaN(options.syncInterval)) {
@@ -52,7 +47,7 @@ async function openKV(
   const config: Config = {
     url: url,
     syncUrl: undefined,
-    authToken: authToken,
+    authToken: options?.authToken,
     syncInterval: undefined,
   };
 

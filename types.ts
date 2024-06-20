@@ -261,6 +261,7 @@ export type KvEventListener = (kvEvent: KvEvent) => Promise<void>;
  * @property {KvEventListener} [eventListener] - If provided, this function will be called when get and delete methods and will be supplied a KvEvent object detailing the changes to the KV.
  */
 export type OpenKVOptions = {
+  authToken?: string;
   embeddedReplicaPath?: string;
   syncInterval?: number;
   eventListener?: KvEventListener;

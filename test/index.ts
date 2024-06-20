@@ -15,16 +15,13 @@ if (!url) {
   throw new Error("KV_URL missing");
 }
 
-if (!authToken) {
-  throw new Error("KV_TOKEN missing");
-}
-
 const options = {
+  authToken: authToken,
   embeddedReplicaPath: embeddedReplicaPath,
   syncInterval: syncInterval ? Number(syncInterval) : undefined,
 };
 
-const kv = await openKV(url, authToken, options);
+const kv = await openKV(url, options);
 
 export async function testSet(k: string, v: KvValue, isJSON: boolean = false) {
   await kv.set(k, v);
