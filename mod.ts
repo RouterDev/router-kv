@@ -11,6 +11,7 @@ import type {
   KvMetaData,
   KvQueryResult,
   KvRecord,
+  KvSetOptions,
   KvValue,
   OpenKVOptions,
 } from "./types.ts";
@@ -81,32 +82,54 @@ class Kv implements KvInterface {
     this.eventListener = eventListener;
   }
 
-  async set<T>(key: string, value: KvValue): Promise<KvRecord<T> | null> {
+  async set<T>(
+    key: string,
+    value: KvValue,
+    options?: Partial<KvSetOptions>,
+  ): Promise<KvRecord<T> | null | void> {
     try {
       if (value === null) {
         await this.delete(key);
         return null;
       }
 
+      const defaultOptions = {
+        returning: true,
+      };
+
+      const mergedOptions = { ...defaultOptions, ...options };
+
       const valueBlob = JSON.stringify(value);
-      const resultSet = await this.instance.batch([
-        {
-          sql:
-            "INSERT INTO kv (k, v) VALUES (?, ?) ON CONFLICT(k) DO UPDATE SET v = ?;",
-          args: [key, valueBlob, valueBlob],
-        },
-        { sql: "SELECT * FROM kv WHERE k = ?", args: [key] },
-      ]);
 
-      const result = resultSet[1].rows[0] as unknown as KvQueryResult;
-      const record: KvRecord<T> = { ...result, v: JSON.parse(result.v) as T };
-      const kvEvent: KvEvent = { type: "set", data: record };
+      const queryBatch = [{
+        sql:
+          "INSERT INTO kv (k, v) VALUES (?, ?) ON CONFLICT(k) DO UPDATE SET v = ?;",
+        args: [key, valueBlob, valueBlob],
+      }];
 
-      if (this.eventListener) {
-        if (this.isTransaction()) {
-          this.eventBuffer.push(kvEvent);
-        } else {
-          await this.eventListener?.(kvEvent);
+      if (mergedOptions.returning) {
+        queryBatch.push(
+          {
+            sql: "SELECT * FROM kv WHERE k = ?",
+            args: [key],
+          },
+        );
+      }
+
+      const resultSet = await this.instance.batch(queryBatch);
+      let record: KvRecord<T> | undefined;
+
+      if (mergedOptions.returning) {
+        const result = resultSet[1].rows[0] as unknown as KvQueryResult;
+        record = { ...result, v: JSON.parse(result.v) as T };
+
+        if (this.eventListener) {
+          const kvEvent: KvEvent = { type: "set", data: record };
+          if (this.isTransaction()) {
+            this.eventBuffer.push(kvEvent);
+          } else {
+            await this.eventListener?.(kvEvent);
+          }
         }
       }
 

@@ -35,6 +35,16 @@ export type KvListOptions = {
 };
 
 /**
+ * Describes the parameters used for pagination and ordering in `KvInterface.list()`.
+ *
+ * @typedef {Object} KvSetOptions
+ * @property {boolean} [returning=true] - Set to true to return `Promise<KvRecord<T>>` of updated KV pair, false to return `Promise<void>`. Defaults to true. EventListener not called when returning is false.
+ */
+export type KvSetOptions = {
+  returning: boolean;
+};
+
+/**
  * Interface describing Metadata object containing the `limit`, `offset`, `reverse`, `orderBy`, and `includeExactMatch`
  * of a `KvInterface.list()` operation, as well as `total` - the number of KV entries, to be returned as the `meta` property of that operations return value.
  */
@@ -64,8 +74,9 @@ export interface KvInterface {
    *
    * @param {string} key - The key to set/update.
    * @param {KvValue} value - The value to set.
+   * @param {Partial<KvSetOptions>} [options] - The options that decide whether to return the updated KvRecord.
    * @template T - Optional template to cast return objects value property from KvValue to T.
-   * @returns {Promise<KvRecord<T> | null>} KvRecord object describing the record of the KV store that has been set, alternatively returns null if key has been set to null.
+   * @returns {Promise<KvRecord<T> | null | void>} Returns Promise<void>, or Promise<null> if value was set to null, alternatively returns updated Promise<KvRecord<T>> if options.returning is true.
    *
    * @example
    * ```ts
@@ -73,7 +84,11 @@ export interface KvInterface {
    * console.log(record); // { k: "scores:@gillmanseb", v: 42, created_at: "...", updated_at: "..." }
    * ```
    */
-  set<T>(key: string, value: KvValue): Promise<KvRecord<T> | null>;
+  set<T>(
+    key: string,
+    value: KvValue,
+    options?: Partial<KvSetOptions>,
+  ): Promise<KvRecord<T> | null | void>;
 
   /**
    * Retrieves the value for a specified key if it exists.

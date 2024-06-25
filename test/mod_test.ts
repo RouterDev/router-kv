@@ -11,6 +11,7 @@ import {
   testListSortColumn,
   testSet,
   testSetReturn,
+  testSetReturningFalse,
   testTransaction,
   testTransactionWithdraw,
 } from "./index.ts";
@@ -24,6 +25,11 @@ Deno.test("[set] number", async () => await testSet("test", 123));
 Deno.test(
   "[set] returns same as [get]",
   async () => await testSetReturn("test", 123),
+);
+
+Deno.test(
+  "[set] returns void when returning is false",
+  async () => await testSetReturningFalse("test_returning_false", 321),
 );
 
 Deno.test(

@@ -43,6 +43,11 @@ export async function testSetReturn(k: string, v: KvValue) {
   assertEquals(setRecord, getRecord);
 }
 
+export async function testSetReturningFalse(k: string, v: KvValue) {
+  const setRecord = await kv.set(k, v, { returning: false });
+  assertEquals(setRecord, undefined);
+}
+
 export async function testListLimit(
   limit: number = DEFAULT_KV_LIST_OPTIONS_LIMIT,
 ) {
