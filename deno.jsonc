@@ -1,6 +1,6 @@
 {
   "name": "@router/kv",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "exports": "./mod.ts",
   "tasks": {
     "populate": "deno run --allow-net --allow-read --allow-env --allow-ffi test/populate.ts",
