@@ -3,7 +3,8 @@
   "packages": {
     "specifiers": {
       "jsr:@std/dotenv@^0.224.0": "jsr:@std/dotenv@0.224.0",
-      "npm:@libsql/client@0.6.2": "npm:@libsql/client@0.6.2"
+      "npm:@libsql/client@0.6.2": "npm:@libsql/client@0.6.2",
+      "npm:@libsql/core@0.6.2": "npm:@libsql/core@0.6.2"
     },
     "jsr": {
       "@std/dotenv@0.224.0": {
